@@ -1,0 +1,133 @@
+body{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#toolbox{
+    z-index: 10;
+    position: fixed;
+    left: 30px;
+    top: 30px;
+    width: 200px;
+    height: 350px;
+    border-radius: 25px;
+    box-shadow: 1px 1px 8px rgb(173, 172, 172);
+    background-color: white;
+}
+
+
+#toolbox  #hold{
+    width: 50px;
+    padding-top: 5px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 5px 5px 5px;
+    column-gap: 3px;
+    row-gap: 3px;
+    justify-content: center;
+    cursor: move;
+}
+
+#toolbox .dot{
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: rgb(61, 61, 61);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+#tools{
+    margin: 30px auto;
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 50px 50px 50px;
+    column-gap: 5px;
+    row-gap: 8px;
+}
+
+.tool{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tool:hover{
+    background-color: rgba(228, 228, 228, 0.397);
+}
+
+.active-tool{
+    background-color: rgba(228, 228, 228, 0.397);
+}
+
+#line > div{ 
+    width: 50%;
+    height: 2px;
+    background-color: black;
+    transform: rotate(45deg);
+}
+
+/* Colors */
+.colors{
+    width: fit-content;
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto auto auto;
+    row-gap: 10px;
+    margin: 0 auto;
+    column-gap: 20px;
+}
+
+.color{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.5s;
+
+    box-shadow: 0 0 4px rgb(156, 156, 156);
+}
+
+.active-color{
+    /*border-radius: 10px;*/
+    box-shadow: 0 0 16px red;
+}
+
+#red{
+    background-color: red;
+}
+
+#yellow{
+    background-color: yellow;
+}
+
+#blue{
+    background-color: blue;
+}
+
+#green{
+    background-color: green;
+}
+
+#white{
+    background-color: white;
+    box-shadow: 0 0 4px rgb(156, 156, 156);
+}
+
+#black{
+    background-color: black;
+}
+
+#pen-width{
+    width: fit-content;
+    margin: 20px auto;
+    cursor: pointer;
+}

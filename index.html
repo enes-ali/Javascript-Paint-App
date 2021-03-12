@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="Online Painting App">
+        <meta name="keywords" content="Paint, Painting, Paint app, Painting app">
+        <meta name="author" content="Enes Ali">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Paint</title>
+        <link rel="stylesheet" href="index.css">
+
+        <script src="https://kit.fontawesome.com/32bea0e5ac.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <div id="toolbox">
+            <div id="hold">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+
+            <div id="tools">
+                <i class="fas fa-pen tool active-tool" id="pen"></i>
+                <i class="far fa-circle tool" id="stroke-circle"></i>
+                <i class="far fa-square tool" id="stroke-rectangle"></i>
+
+                <i class="fas fa-square tool" id="circle"></i>
+                <i class="fas fa-circle tool" id="rectangle"></i>
+                <div class="tool" id="line"> <div></div> </div>
+            </div>
+
+            <div id="tool-settings">
+                <div id="pencil-settings">
+                    <div class="colors">
+                        <div class="color active-color" id="red"></div>
+                        <div class="color" id="yellow"></div>
+                        <div class="color" id="green"></div>
+                        <div class="color" id="white"></div>
+                        <div class="color" id="blue"></div>
+                        <div class="color" id="black"></div>
+                    </div>
+
+                    <!-- <input id="pen-width" type="range" min="0" max="100"> -->
+                </div>
+            </div>
+        </div>
+        <script src="index.js" type="module"></script>
+    </body>
+
+</html>
+
