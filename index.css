@@ -49,9 +49,10 @@ body{
 }
 
 .tool{
+
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     width: 50px;
     height: 50px;
     border-radius: 10px;
@@ -91,14 +92,13 @@ body{
     height: 30px;
     border-radius: 50%;
     cursor: pointer;
-    transition: 0.5s;
-
+    transition: box-shadow 0.5s;
     box-shadow: 0 0 4px rgb(156, 156, 156);
 }
 
 .active-color{
     /*border-radius: 10px;*/
-    box-shadow: 0 0 16px red;
+    /*box-shadow: 0 0 16px red !important; /* !important for white color */
 }
 
 #red{
@@ -106,7 +106,7 @@ body{
 }
 
 #yellow{
-    background-color: yellow;
+    background-color: rgb(255, 217, 0);
 }
 
 #blue{
@@ -124,6 +124,7 @@ body{
 
 #black{
     background-color: black;
+    box-shadow: 0 0 16px black; /* Black is default color */
 }
 
 #pen-width{
