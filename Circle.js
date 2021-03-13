@@ -3,7 +3,6 @@ import Tool from "./Tool.js";
 
 class Circle extends Tool{
     FillColor = "transparent";
-    IsFilled = false;
     
     constructor(){
         super();
