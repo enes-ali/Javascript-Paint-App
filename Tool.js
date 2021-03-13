@@ -4,6 +4,7 @@ class Tool{
     StrokeWidth = 8;
     StrokeColor = "black";
     FillColor = "black";
+    LineJoin = "round";
 
     constructor(){
         if(this.constructor == Tool)

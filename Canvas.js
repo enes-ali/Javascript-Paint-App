@@ -2,6 +2,12 @@
 import Tool from "./Tool.js";
 
 class Canvas{
+
+    #isHoldingMouseButton = false;
+    _currentTool = null;
+    #lastMousePos = []; // For Drawing Shapes
+    #lastImage;
+
     constructor(width, height, parent){
         // Create canvas
         this._canvas = document.createElement("canvas");
@@ -26,9 +32,6 @@ class Canvas{
     getCanvas(){
         return this._canvas;
     }
-
-    #isHoldingMouseButton = false;
-    _currentTool = null;
 
     get currentTool(){
         return this._currentTool;
@@ -56,8 +59,9 @@ class Canvas{
 
     mouseDown = (event) => {
         this.#isHoldingMouseButton = true;
-        if(this._currentTool !== undefined)
-            this._currentTool.draw(event, this._context);
+        this.#lastMousePos = [event.clientX, event.clientY];
+        this.#lastImage = this._context.getImageData(0, 0, this._canvas.width, this._canvas.height);
+        this.draw(event);
     }
 
     mouseUp = (event) => {
@@ -71,6 +75,11 @@ class Canvas{
     }
 
     draw = (event) => {
+        event.center_x = this.#lastMousePos[0];
+        event.center_y = this.#lastMousePos[1];
+        event.lastImage = this.#lastImage;
+        event.canvasWith = this._canvas.width;
+        event.canvasHeight = this._canvas.height;
         if(this._currentTool !== undefined && this.#isHoldingMouseButton)
             this._currentTool.draw(event, this._context);
     }
