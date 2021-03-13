@@ -1,11 +1,11 @@
 "use-strict";
 import Canvas from "./Canvas.js";
 import Pen from "./Pen.js";
+import Circle from './Circle.js';
 
 // Create canvas
 let canvas = new Canvas(window.innerWidth, window.innerHeight, document.body);
-let pen = new Pen(); // Default tool
-canvas.currentTool = pen;
+canvas.currentTool = new Pen(); // Default tool
 
 // Toolbox
 const toolbox = document.querySelector("#toolbox");
@@ -13,7 +13,6 @@ let isHoldingToolbox = false;
 
 const tools = Array.from(document.querySelectorAll(".tool"));
 const colors = Array.from(document.querySelectorAll(".color"));
-
 
 //** Move toolbox **//
 
@@ -53,12 +52,17 @@ tools.forEach(tool => {
         event.currentTarget.classList.add("active-tool");
         switch(event.currentTarget.id){
             case "pen":
-                let newTool = new Pen();
-                canvas.currentTool = newTool;
+                let pen = new Pen();
+                pen.StrokeColor = canvas.currentTool.StrokeColor;
+                pen.FillColor = canvas.currentTool.FillColor; // For next tool
+                canvas.currentTool = pen;
                 break;
             
             case "stroke-circle":
-                console.log("stroke-circle");
+                let strokeCircle = new Circle();    
+                strokeCircle.StrokeColor = canvas.currentTool.StrokeColor;
+                strokeCircle.FillColor = canvas.currentTool.FillColor; // For next tool
+                canvas.currentTool = strokeCircle;
                 break;
             
             case "stroke-rectangle":
@@ -66,6 +70,11 @@ tools.forEach(tool => {
                 break;
 
             case "circle":
+                let circle = new Circle();
+                circle.FillColor = canvas.currentTool.FillColor;
+                circle.StrokeColor = canvas.currentTool.StrokeColor; // For next tool
+                circle.IsFilled = true;
+                canvas.currentTool = circle;
                 console.log("circle");
                 break;
             

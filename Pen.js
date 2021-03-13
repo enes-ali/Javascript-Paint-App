@@ -12,6 +12,7 @@ class Pen extends Tool{
         const Y = event.offsetY;
         context.strokeStyle = this.StrokeColor;
         context.fillStyle = this.FillColor;
+        context.lineJoin = this.LineJoin;
         //context.lineWidth = this.StrokeWidth;
         context.lineTo(X, Y);
         context.stroke();
