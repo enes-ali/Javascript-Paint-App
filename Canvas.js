@@ -42,6 +42,18 @@ class Canvas{
         }
     }
 
+    setFillColor(color){
+        if(!color instanceof String)
+            new Error("Color must be string");
+        this._currentTool.FillColor = color;
+    }
+
+    setStrokeColor(color){
+        if(!color instanceof String)
+            new Error("Color must be string");
+        this._currentTool.StrokeColor = color;
+    }
+
     mouseDown = (event) => {
         this.#isHoldingMouseButton = true;
         if(this._currentTool !== undefined)

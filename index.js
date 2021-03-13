@@ -11,8 +11,35 @@ canvas.currentTool = pen;
 const toolbox = document.querySelector("#toolbox");
 let isHoldingToolbox = false;
 
-// Change Current Tool
 const tools = Array.from(document.querySelectorAll(".tool"));
+const colors = Array.from(document.querySelectorAll(".color"));
+
+
+//** Move toolbox **//
+
+toolbox.addEventListener("mousedown", event => {
+    if(event.target.id === "hold" || event.target.className === "dot")
+        isHoldingToolbox = true;
+});
+
+document.body.addEventListener("mouseup", event => {
+    isHoldingToolbox = false;
+});
+
+document.body.addEventListener("mouseleave", event => {
+    isHoldingToolbox = false;
+});
+
+document.body.addEventListener("mousemove", event => {
+    if(isHoldingToolbox){
+        let left = event.clientX - (toolbox.clientWidth / 2);
+        let top = event.clientY - 10;
+        toolbox.style.left = `${left}px`;
+        toolbox.style.top = `${top}px`;
+    }
+});
+
+//** Change current tool **//
 
 function clearActiveTool(){
     tools.forEach(tool => {
@@ -52,25 +79,32 @@ tools.forEach(tool => {
     });
 });
 
-// Move toolbox
-toolbox.addEventListener("mousedown", event => {
-    if(event.target.id === "hold" || event.target.className === "dot")
-        isHoldingToolbox = true;
-});
+//** Change Color **//
+function clearActiveColor(){
+    colors.forEach(color => {
+        color.classList.remove("active-color");
+        color.style.boxShadow = "none";
+        if(color.id === "white")
+            color.style.boxShadow = "0 0 4px rgb(156, 156, 156)";
+    });
+}
 
-document.body.addEventListener("mouseup", event => {
-    isHoldingToolbox = false;
-});
+colors.forEach(color => {
+    color.addEventListener("click", event => {
+        clearActiveColor();
+        event.currentTarget.classList.add("active-color");
+        event.currentTarget.style.boxShadow = `0 0 16px ${event.currentTarget.id}`;
+        
+        let newColor = event.currentTarget.id;
+        canvas.setFillColor(newColor);
+        canvas.setStrokeColor(newColor);
 
-document.body.addEventListener("mouseleave", event => {
-    isHoldingToolbox = false;
-});
-
-document.body.addEventListener("mousemove", event => {
-    if(isHoldingToolbox){
-        let left = event.clientX - (toolbox.clientWidth / 2);
-        let top = event.clientY - 10;
-        toolbox.style.left = `${left}px`;
-        toolbox.style.top = `${top}px`;
-    }
+        if(newColor === "yellow"){
+            canvas.setFillColor("rgb(255, 217, 0)");
+            canvas.setStrokeColor("rgb(255, 217, 0)");
+        }
+        else if(newColor === "white"){
+            event.currentTarget.style.boxShadow = `0 0 16px rgb(156, 156, 156)`;
+        }
+    });
 });
