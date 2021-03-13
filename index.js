@@ -2,6 +2,8 @@
 import Canvas from "./Canvas.js";
 import Pen from "./Pen.js";
 import Circle from './Circle.js';
+import Rectangle from "./Rectangle.js";
+
 
 // Create canvas
 let canvas = new Canvas(window.innerWidth, window.innerHeight, document.body);
@@ -66,7 +68,10 @@ tools.forEach(tool => {
                 break;
             
             case "stroke-rectangle":
-                console.log("stroke-rectangle");
+                let strokeRectangle = new Rectangle();
+                strokeRectangle.FillColor = canvas.currentTool.FillColor;
+                strokeRectangle.StrokeColor = canvas.currentTool.StrokeColor;
+                canvas.currentTool = strokeRectangle;
                 break;
 
             case "circle":
@@ -75,11 +80,14 @@ tools.forEach(tool => {
                 circle.StrokeColor = canvas.currentTool.StrokeColor; // For next tool
                 circle.IsFilled = true;
                 canvas.currentTool = circle;
-                console.log("circle");
                 break;
             
             case "rectangle":
-                console.log("rectangle");
+                let rectangle = new Rectangle();
+                rectangle.FillColor = canvas.currentTool.FillColor;
+                rectangle.StrokeColor = canvas.currentTool.StrokeColor;
+                rectangle.IsFilled = true;
+                canvas.currentTool = rectangle;
                 break;
             
             case "line":
