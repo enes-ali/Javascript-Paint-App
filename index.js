@@ -1,8 +1,8 @@
-"use-strict";
 import Canvas from "./Canvas.js";
 import Pen from "./Pen.js";
 import Circle from './Circle.js';
 import Rectangle from "./Rectangle.js";
+import Line from "./Line.js";
 
 
 // Create canvas
@@ -91,7 +91,10 @@ tools.forEach(tool => {
                 break;
             
             case "line":
-                console.log("Line");
+                let line = new Line();
+                line.FillColor = canvas.currentTool.FillColor;
+                line.StrokeColor = canvas.currentTool.StrokeColor;
+                canvas.currentTool = line;
         }
     });
 });

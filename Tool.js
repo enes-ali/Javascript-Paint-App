@@ -1,5 +1,3 @@
-"use-strict";
-
 class Tool{
     StrokeWidth = 8;
     StrokeColor = "black";
