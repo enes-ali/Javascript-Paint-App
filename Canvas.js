@@ -1,4 +1,3 @@
-"use-strict";
 import Tool from "./Tool.js";
 
 class Canvas{
