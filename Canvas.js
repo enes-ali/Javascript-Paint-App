@@ -1,44 +1,52 @@
+import Pen from "./Pen.js";
 import Tool from "./Tool.js";
 
 class Canvas{
 
     #isHoldingMouseButton = false;
-    _currentTool = null;
+    #currentTool = new Pen();
     #lastMousePos = []; // For Drawing Shapes
     #lastImage;
+    #canvas;
+    #context;
 
     constructor(width, height, parent){
         // Create canvas
-        this._canvas = document.createElement("canvas");
-        this._canvas.width = width;
-        this._canvas.height = height;
+        this.#canvas = document.createElement("canvas");
+        this.#canvas.width = width;
+        this.#canvas.height = height;
 
         // Append canvas to parent
-        parent.appendChild(this._canvas);
+        parent.appendChild(this.#canvas);
 
         // Create context
-        this._context = this._canvas.getContext("2d");
-        this._context.beginPath();
-        this._context.lineCap = "rounded";
+        this.#context = this.#canvas.getContext("2d");
+        this.#context.beginPath();
 
         // Bind events
-        this._canvas.addEventListener("mousedown", this.mouseDown);
-        this._canvas.addEventListener("mouseup", this.mouseUp);
-        this._canvas.addEventListener("mouseleave", this.mouseLeave);
-        this._canvas.addEventListener("mousemove", this.draw);
+        this.#canvas.addEventListener("mousedown", this.mouseDown);
+        this.#canvas.addEventListener("mouseup", this.mouseUp);
+        this.#canvas.addEventListener("mouseleave", this.mouseLeave);
+        this.#canvas.addEventListener("mousemove", this.draw);
     }
 
     getCanvas(){
-        return this._canvas;
+        return this.#canvas;
     }
 
     get currentTool(){
-        return this._currentTool;
+        return this.#currentTool;
     }
 
-    set currentTool(newTool){
+    setCurrentTool = (newTool)=>{
         if(newTool instanceof Tool){
-            this._currentTool = newTool;
+            newTool.FillColor = this.#currentTool.FillColor;
+            newTool.StrokeColor = this.#currentTool.StrokeColor;
+            newTool.LineCap = this.#currentTool.LineCap;
+            newTool.LineJoin = this.#currentTool.LineJoin;
+            newTool.LineWidth = this.#currentTool.LineWidth;
+            
+            this.#currentTool = newTool;
         }else{
             throw new Error("Tool Should Be instance of Tool class");
         }
@@ -47,40 +55,40 @@ class Canvas{
     setFillColor(color){
         if(!color instanceof String)
             new Error("Color must be string");
-        this._currentTool.FillColor = color;
+        this.#currentTool.FillColor = color;
     }
 
     setStrokeColor(color){
         if(!color instanceof String)
             new Error("Color must be string");
-        this._currentTool.StrokeColor = color;
+        this.#currentTool.StrokeColor = color;
     }
 
     mouseDown = (event) => {
         this.#isHoldingMouseButton = true;
         this.#lastMousePos = [event.clientX, event.clientY];
-        this.#lastImage = this._context.getImageData(0, 0, this._canvas.width, this._canvas.height);
+        this.#lastImage = this.#context.getImageData(0, 0, this.#canvas.width, this.#canvas.height);
         this.draw(event);
     }
 
     mouseUp = (event) => {
         this.#isHoldingMouseButton = false;
-        this._context.beginPath();
+        this.#context.beginPath();
     }
 
     mouseLeave = (event) => {
         this.#isHoldingMouseButton = false;
-        this._context.beginPath();
+        this.#context.beginPath();
     }
 
     draw = (event) => {
         event.center_x = this.#lastMousePos[0];
         event.center_y = this.#lastMousePos[1];
         event.lastImage = this.#lastImage;
-        event.canvasWith = this._canvas.width;
-        event.canvasHeight = this._canvas.height;
-        if(this._currentTool !== undefined && this.#isHoldingMouseButton)
-            this._currentTool.draw(event, this._context);
+        event.canvasWith = this.#canvas.width;
+        event.canvasHeight = this.#canvas.height;
+        if(this.#currentTool !== undefined && this.#isHoldingMouseButton)
+            this.#currentTool.draw(event, this.#context);
     }
 }
 

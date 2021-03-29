@@ -16,8 +16,7 @@ class Line extends Tool{
         let endY = event.clientY;
 
         // Settings
-        context.fillStyle = this.FillColor;
-        context.strokeStyle = this.StrokeColor;
+        this.matchSettings(context);
 
         // draw
         context.moveTo(startX, startY);

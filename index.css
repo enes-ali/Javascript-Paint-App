@@ -127,8 +127,29 @@ body{
     box-shadow: 0 0 16px black; /* Black is default color */
 }
 
-#pen-width{
+#thickness-settings{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    margin: auto;
+    margin-top: 30px;
+    width: 70%;
+}
+
+#thickness-range{
     width: fit-content;
     margin: 20px auto;
     cursor: pointer;
+    margin: 0;
+}
+#thickness-range:focus{
+    outline: none;
+}
+
+#thickness-text{
+    width: 25px;
+    height: 20px;
+    border: none;
+    text-align: center;
 }

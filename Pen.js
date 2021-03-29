@@ -9,10 +9,11 @@ class Pen extends Tool{
     draw(event, context){
         const X = event.offsetX;
         const Y = event.offsetY;
-        context.strokeStyle = this.StrokeColor;
-        context.fillStyle = this.FillColor;
-        context.lineJoin = this.LineJoin;
-        //context.lineWidth = this.StrokeWidth;
+
+        // Settings
+        this.matchSettings(context);
+        
+        // draw
         context.lineTo(X, Y);
         context.stroke();
         context.beginPath();
