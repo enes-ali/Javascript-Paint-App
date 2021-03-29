@@ -11,8 +11,8 @@ class Rectangle extends Tool{
         context.clearRect(0, 0, event.canvasWidth, event.canvasHeight);
         context.putImageData(event.lastImage, 0, 0);
 
-        context.fillStyle = this.FillColor;
-        context.strokeStyle = this.StrokeColor;
+        // Settings
+        this.matchSettings(context);
 
         let start_x = (event.center_x < event.clientX) ? event.center_x : event.clientX;
         let start_y = (event.center_y < event.clientY) ? event.center_y : event.clientY;

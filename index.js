@@ -7,7 +7,6 @@ import Line from "./Line.js";
 
 // Create canvas
 let canvas = new Canvas(window.innerWidth, window.innerHeight, document.body);
-canvas.currentTool = new Pen(); // Default tool
 
 // Toolbox
 const toolbox = document.querySelector("#toolbox");
@@ -15,6 +14,8 @@ let isHoldingToolbox = false;
 
 const tools = Array.from(document.querySelectorAll(".tool"));
 const colors = Array.from(document.querySelectorAll(".color"));
+const thicknessRange = document.getElementById("thickness-range");
+const thicknessText = document.getElementById("thickness-text");
 
 //** Move toolbox **//
 
@@ -54,47 +55,31 @@ tools.forEach(tool => {
         event.currentTarget.classList.add("active-tool");
         switch(event.currentTarget.id){
             case "pen":
-                let pen = new Pen();
-                pen.StrokeColor = canvas.currentTool.StrokeColor;
-                pen.FillColor = canvas.currentTool.FillColor; // For next tool
-                canvas.currentTool = pen;
+                canvas.setCurrentTool(new Pen());
                 break;
             
             case "stroke-circle":
-                let strokeCircle = new Circle();    
-                strokeCircle.StrokeColor = canvas.currentTool.StrokeColor;
-                strokeCircle.FillColor = canvas.currentTool.FillColor; // For next tool
-                canvas.currentTool = strokeCircle;
+                canvas.setCurrentTool(new Circle());
                 break;
             
             case "stroke-rectangle":
-                let strokeRectangle = new Rectangle();
-                strokeRectangle.FillColor = canvas.currentTool.FillColor;
-                strokeRectangle.StrokeColor = canvas.currentTool.StrokeColor;
-                canvas.currentTool = strokeRectangle;
+                canvas.setCurrentTool(new Rectangle());
                 break;
 
             case "circle":
                 let circle = new Circle();
-                circle.FillColor = canvas.currentTool.FillColor;
-                circle.StrokeColor = canvas.currentTool.StrokeColor; // For next tool
                 circle.IsFilled = true;
-                canvas.currentTool = circle;
+                canvas.setCurrentTool(circle);
                 break;
             
             case "rectangle":
                 let rectangle = new Rectangle();
-                rectangle.FillColor = canvas.currentTool.FillColor;
-                rectangle.StrokeColor = canvas.currentTool.StrokeColor;
                 rectangle.IsFilled = true;
-                canvas.currentTool = rectangle;
+                canvas.setCurrentTool(rectangle);
                 break;
             
             case "line":
-                let line = new Line();
-                line.FillColor = canvas.currentTool.FillColor;
-                line.StrokeColor = canvas.currentTool.StrokeColor;
-                canvas.currentTool = line;
+                canvas.setCurrentTool(new Line());
         }
     });
 });
@@ -127,4 +112,19 @@ colors.forEach(color => {
             event.currentTarget.style.boxShadow = `0 0 16px rgb(156, 156, 156)`;
         }
     });
+});
+
+//** Change Pen Width **//
+thicknessRange.addEventListener("input", (event) => {
+    thicknessText.value = event.target.value;
+});
+
+thicknessRange.addEventListener("change", (event) => {
+    canvas.currentTool.LineWidth = event.target.value;
+});
+
+thicknessText.addEventListener("change", (event) => {
+    const newWidth = event.target.value;
+    thicknessRange.value = newWidth;
+    canvas.currentTool.LineWidth = newWidth;
 });
